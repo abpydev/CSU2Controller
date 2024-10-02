@@ -35,15 +35,19 @@ class CSU2Controller:
 
     def send_command(self, command):
         """Send a command to the CSU2 device and return the response."""
-        if not self.socket:
-            raise Exception("Not connected to the CSU2 device.")
 
-        # Send the command with a carriage return
-        self.socket.sendall(f"${command}\r".encode('ascii'))
+        try : 
+            # Send the command with a carriage return
+            self.socket.sendall(f"${command}\r".encode('ascii'))
 
-        # Receive the response
-        response = self.socket.recv(1024).decode('ascii')
-        return response
+            # Receive the response
+            response = self.socket.recv(1024).decode('ascii')
+            return response
+
+        except OSError as oserr: 
+            raise ConnectionError("Not connected to the CSU2 device.") from oserr
+        except AttributeError :
+            raise ConnectionError("Not connected to the CSU2 device.")
 
     def query_ok(self):
         """Query system time since power-on."""
