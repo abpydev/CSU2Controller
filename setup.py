@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="csu2controller",
-    version="0.1.0",
+    version="0.1.1",
     author="Antoine BLASIAK",
     author_email="antoineblasiak66@gmail.com",
     description="A Python library to control the CSU2 device.",
