@@ -255,3 +255,22 @@ class CSU2Controller:
         """Query parameter version (number and type)"""
         response = self.send_command(f"R#0")
         return response.strip('!R#9999').strip()
+
+class CSU2AnswerError(Exception):
+
+    """Exception to handle error responses from the CSU2"""
+
+    def __init__(self, command, answer) -> None:
+        super().__init__()
+        self.__answer = answer
+        self.__command = command
+        text = f'Command {self.__command} to CSU failed with answer : {self.__answer}'
+        super().__init__(text)
+
+    @property
+    def command(self)
+        return self.__command
+
+    @property
+    def answer(self)
+        return self.__answer
