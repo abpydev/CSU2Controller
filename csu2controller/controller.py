@@ -49,6 +49,13 @@ class CSU2Controller:
         except AttributeError :
             raise ConnectionError("Not connected to the CSU2 device.")
 
+    def flush_socket(self):
+        """Flush the socket."""
+        self.socket.recv(1024)
+
+    def set_socket_timeout(self, timeout):
+        self.socket.settimeout(timeout)
+
     def query_ok(self):
         """Query system time since power-on."""
         response = self.send_command("OK")
