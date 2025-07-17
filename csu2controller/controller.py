@@ -275,9 +275,9 @@ class CSU2AnswerError(Exception):
         super().__init__(text)
 
     @property
-    def command(self)
+    def command(self):
         return self.__command
 
     @property
-    def answer(self)
+    def answer(self):
         return self.__answer
