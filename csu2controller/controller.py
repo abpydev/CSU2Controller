@@ -41,20 +41,13 @@ class CSU2Controller:
             self.socket.sendall(f"${command}\r".encode('ascii'))
 
             # Receive the response
-            response = self.socket.recv(1024).decode('ascii')
+            response = self.socket.recv(1024).decode('latin-1')
             return response
 
         except OSError as oserr: 
             raise ConnectionError("Not connected to the CSU2 device.") from oserr
         except AttributeError :
             raise ConnectionError("Not connected to the CSU2 device.")
-    
-    def flush_socket(self):
-        """Flush the socket."""
-        self.socket.recv(1024)
-
-    def set_socket_timeout(self, timeout):
-        self.socket.settimeout(timeout)
 
     def flush_socket(self):
         """Flush the socket."""
@@ -175,7 +168,7 @@ class CSU2Controller:
 
     def query_caption_of_tube_at_index(self, index):
         """Query caption of tube type at index ix"""
-        response = self.send_command(f"TTLP {index}")
+        response = self.send_command(f"TT LP {index}")
         return response.strip('!TTLP').strip()
 
     def program_string(self, position, string):
